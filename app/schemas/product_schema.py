@@ -6,6 +6,7 @@ from .product_insurance_type_schema import ProductInsuranceType
 from .product_detail_schema import ProductDetail
 from .product_rider_schema import ProductRider
 from .product_benefit_schema import ProductBenefit
+from .product_plan_schema import ProductPlan
 
 
 class ProductBase(BaseModel):
@@ -28,6 +29,7 @@ class Product(ProductBase):
     detail: Optional[ProductDetail]
     riders: Optional[List[ProductRider]]
     benefits: Optional[List[ProductBenefit]]
+    plans: Optional[List[ProductPlan]]
 
     class Config:
         orm_mode = True

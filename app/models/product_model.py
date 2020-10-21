@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
+from sqlalchemy import Column, ForeignKey, String, Boolean
 from sqlalchemy.orm import relationship
 
 from config.database import Base
@@ -8,12 +8,13 @@ from .product_insurance_type_model import ProductInsuranceType
 from .product_detail_model import ProductDetail
 from .product_rider_model import ProductRider
 from .product_benefit_model import ProductBenefit
+from .product_plan_model import ProductPlan
 
 
 class Product(Base):
     __tablename__ = "products"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String(50), primary_key=True, index=True)
     slug = Column(String(191), index=True)
     name = Column(String(191), index=True)
     is_active = Column(Boolean, default=True)
@@ -36,3 +37,4 @@ class Product(Base):
     detail = relationship(ProductDetail, back_populates="products")
     riders = relationship(ProductRider, backref="product", lazy="select")
     benefits = relationship(ProductBenefit, backref="product", lazy="select")
+    plans = relationship(ProductPlan, backref="product", lazy="select")
