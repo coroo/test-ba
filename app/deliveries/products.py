@@ -35,7 +35,7 @@ def read_products(
 
 
 @router.get(local_prefix+"{product_id}", response_model=product_schema.Product)
-def read_product(product_id: int, db: Session = Depends(deps.get_db)):
+def read_product(product_id: str, db: Session = Depends(deps.get_db)):
     db_product = product_usecase.get_product(db, product_id=product_id)
     if db_product is None:
         raise HTTPException(

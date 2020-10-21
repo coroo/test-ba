@@ -3,8 +3,14 @@ from pydantic import BaseModel
 
 
 class ProductBase(BaseModel):
-    title: str
-    description: Optional[str] = None
+    slug: str
+    name: str
+    is_active: Optional[bool] = 1
+    category_id: str
+    insurance_type_id: str
+    featured: Optional[bool] = 0
+    premium_type: str
+    bundling_with_rider: Optional[bool] = 0
 
 
 class ProductCreate(ProductBase):
@@ -12,8 +18,7 @@ class ProductCreate(ProductBase):
 
 
 class Product(ProductBase):
-    id: int
-    owner_id: str
+    id: str
 
     class Config:
         orm_mode = True

@@ -10,7 +10,7 @@ def get_products(db: Session, skip: int = 0, limit: int = 100):
     ).offset(skip).limit(limit).all()
 
 
-def get_product(db: Session, product_id: int):
+def get_product(db: Session, product_id: str):
     return db.query(
         product_model.Product
     ).filter(product_model.Product.id == product_id).first()

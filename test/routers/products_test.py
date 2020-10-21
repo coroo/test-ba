@@ -23,7 +23,7 @@ def test_func_products():
     assert session_data['token_type'] is not None
     assert session_data['access_token'] is not None
 
-    # POST ITEM
+    # POST PRODUCT
     headers = {"Authorization":
                f"{session_data['token_type']} {session_data['access_token']}"}
     response = client.post(
@@ -35,17 +35,17 @@ def test_func_products():
     data = response.json()
     assert data['id'] is not None
 
-    # READ ITEMS
+    # READ PRODUCTS
     response = client.get(settings.API_PREFIX+"/products/",
                           headers=headers,)
     assert response.status_code == 200
 
-    # READ ITEM
+    # READ PRODUCT
     response = client.get(settings.API_PREFIX+"/products/"+str(data['id']),
                           headers=headers,)
     assert response.status_code == 200
 
-    # READ NOT EXIST ITEM
+    # READ NOT EXIST PRODUCT
     response = client.get(settings.API_PREFIX+"/products/987654321",
                           headers=headers,)
     assert response.status_code == 404
