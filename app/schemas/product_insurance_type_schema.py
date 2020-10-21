@@ -11,3 +11,6 @@ class ProductInsuranceTypeCreate(ProductInsuranceTypeBase):
 
 class ProductInsuranceType(ProductInsuranceTypeBase):
     id: str
+
+    class Config:
+        orm_mode = True

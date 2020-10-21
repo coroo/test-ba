@@ -11,3 +11,6 @@ class ProductCategoryCreate(ProductCategoryBase):
 
 class ProductCategory(ProductCategoryBase):
     id: str
+
+    class Config:
+        orm_mode = True
