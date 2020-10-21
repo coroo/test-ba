@@ -32,6 +32,7 @@ def upgrade():
         sa.Column('is_active', sa.Boolean, default=True),
         sa.Column('category_id', sa.String(50), default=True),
         sa.Column('insurance_type_id', sa.String(50), default=True),
+        sa.Column('detail_id', sa.String(50), default=True),
         sa.Column('featured', sa.Boolean, default=True),
         sa.Column('premium_type', sa.String(100)),
         sa.Column('bundling_with_rider', sa.Boolean, default=True),
@@ -77,7 +78,7 @@ def upgrade():
         sa.Column('description', sa.String(255)),
         sa.Column('icon', sa.String(255)),
         sa.Column('coverage_period', sa.String(191)),
-        sa.Column('basic_id', sa.String(50)),
+        sa.Column('product_id', sa.String(50)),
         sa.Column('rider_id', sa.String(50)),
         sa.Column('created_at', sa.DateTime(),
                   server_default=sa.func.current_timestamp(), nullable=False),
@@ -113,7 +114,8 @@ def upgrade():
         sa.Column('is_active', sa.Boolean, default=True),
         sa.Column('category_id', sa.String(50), default=True),
         sa.Column('insurance_type_id', sa.String(50), default=True),
-        sa.Column('basic_id', sa.String(50), default=True),
+        sa.Column('detail_id', sa.String(50), default=True),
+        sa.Column('product_id', sa.String(50), default=True),
         sa.Column('premium_type', sa.String(100)),
         sa.Column('created_at', sa.DateTime(),
                   server_default=sa.func.current_timestamp(), nullable=False),
@@ -148,6 +150,86 @@ def upgrade():
     )
 
     # Seed Data
+    pr_details_id_1 = generate_uuid()
+    pr_details_id_2 = generate_uuid()
+    pr_details_id_3 = generate_uuid()
+    pr_details_id_4 = generate_uuid()
+    pr_details_id_5 = generate_uuid()
+    pr_details_id_6 = generate_uuid()
+    op.bulk_insert(
+        pr_details,
+        [
+            {
+                "id": pr_details_id_1,
+                "summary": "Asuransi jiwa yang memberikan kamu manfaat"
+                + " perlindungan finansial untuk diri sendiri dan orang-orang"
+                + " terdekat dari hal tak terduga",
+                "description": "<div>Asuransi jiwa yang memberikan"
+                + " kamu manfaat perlindungan finansial untuk diri sendiri dan"
+                + " orang-orang terdekat dari hal tak terduga</div>",
+                "icon": "products/"
+                + "c8ab8a5ebb762b440a6db7b830e102a30a22d11f.svg",
+                "coverage_period": 1,
+            },
+            {
+                "id": pr_details_id_2,
+                "summary": "Asuransi yang menyiapkan diri kamu dengan"
+                + " manfaat perlindungan dari penyakit kritis <br> <br>",
+                "description": "<div>Asuransi yang menyiapkan diri"
+                + " kamu dengan manfaat perlindungan dari penyakit kritis"
+                + "</div>",
+                "icon": "products/"
+                + "2ba2d0e4226123189a55c80443b731efc13edf54.svg",
+                "coverage_period": 1,
+            },
+            {
+                "id": pr_details_id_3,
+                "summary": "Asuransi yang menjaga kamu sepenuhnya dengan"
+                + " memberikan perlindungan menyeluruh dari risiko cedera yang"
+                + " disebabkan oleh kecelakaan",
+                "description": "<div>Asuransi yang menjaga kamu"
+                + " sepenuhnya dengan memberikan perlindungan menyeluruh dari"
+                + " risiko cedera yang disebabkan oleh kecelakaan</div>",
+                "icon": "products/"
+                + "4abf9e867e26aa7d0993c747ba5416874c668178.svg",
+                "coverage_period": 1,
+            },
+            {
+                "id": pr_details_id_4,
+                "summary": "Maksimalkan perlindungan super kamu dengan manfaat"
+                + " dobel untuk risiko kecelakaan ketika berkendara dengan"
+                + " motor",
+                "description": "<div>Maksimalkan perlindungan super kamu"
+                + " dengan manfaat dobel untuk risiko kecelakaan ketika"
+                + " berkendara dengan motor</div>",
+                "icon": "products/"
+                + "s8mvMf8D51v7s4StFjW4fVpr8rJuZExBQxgHPZn9.svg",
+                "coverage_period": 1,
+            },
+            {
+                "id": pr_details_id_5,
+                "summary": "Lengkapi perlindungan super kamu dengan manfaat"
+                + " dobel untuk risiko kecelakaan khusus setiap hari libur"
+                + " nasional",
+                "description": "<div>Lengkapi perlindungan super kamu"
+                + " dengan manfaat dobel untuk risiko kecelakaan khusus setiap"
+                + " hari libur nasional</div>",
+                "icon": "",
+                "coverage_period": 1,
+            },
+            {
+                "id": pr_details_id_6,
+                "summary": "Produk unggulan yang meringankan beban biaya"
+                + " perawatan Rumah Sakit, baik rawat inap maupun ICU.",
+                "description": "<div>Produk unggulan yang meringankan"
+                + " beban biaya perawatan Rumah Sakit, baik rawat inap maupun"
+                + " ICU.</div>",
+                "icon": "products/"
+                + "27c6a2dcca47393dda84f3d038dd3d115d798520.svg",
+                "coverage_period": 1,
+            }
+        ])
+
     pr_categories_id_1 = generate_uuid()
     pr_categories_id_2 = generate_uuid()
     op.bulk_insert(pr_categories,
@@ -194,6 +276,7 @@ def upgrade():
                             "is_active": 1,
                             "category_id": pr_categories_id_2,
                             "insurance_type_id": pr_insurance_types_id_3,
+                            "detail_id": pr_details_id_1,
                             "featured": 0,
                             "premium_type": "rate by age",
                             "bundling_with_rider": 0,
@@ -205,6 +288,7 @@ def upgrade():
                             "is_active": 1,
                             "category_id": pr_categories_id_2,
                             "insurance_type_id": pr_insurance_types_id_2,
+                            "detail_id": pr_details_id_2,
                             "featured": 0,
                             "premium_type": "rate by age",
                             "bundling_with_rider": 1,
@@ -216,6 +300,7 @@ def upgrade():
                             "is_active": 1,
                             "category_id": pr_categories_id_1,
                             "insurance_type_id": pr_insurance_types_id_1,
+                            "detail_id": pr_details_id_3,
                             "featured": 1,
                             "premium_type": "fixed price",
                             "bundling_with_rider": 0,
@@ -227,6 +312,7 @@ def upgrade():
                             "is_active": 1,
                             "category_id": pr_categories_id_2,
                             "insurance_type_id": pr_insurance_types_id_6,
+                            "detail_id": pr_details_id_6,
                             "featured": 0,
                             "premium_type": "rate by age",
                             "bundling_with_rider": 0,
@@ -238,6 +324,7 @@ def upgrade():
                             "is_active": 1,
                             "category_id": pr_categories_id_2,
                             "insurance_type_id": pr_insurance_types_id_6,
+                            "detail_id": "",
                             "featured": 0,
                             "premium_type": "rate by age",
                             "bundling_with_rider": 0,
@@ -255,7 +342,8 @@ def upgrade():
                             "name": "Super Motor Protection",
                             "category_id": pr_categories_id_1,
                             "insurance_type_id": pr_insurance_types_id_4,
-                            "basic_id": prs_id_3,
+                            "detail_id": pr_details_id_4,
+                            "product_id": prs_id_3,
                             "premium_type": "fixed price",
                         },
                         {
@@ -264,7 +352,8 @@ def upgrade():
                             "name": "Super Holiday Protection",
                             "category_id": pr_categories_id_1,
                             "insurance_type_id": pr_insurance_types_id_5,
-                            "basic_id": prs_id_3,
+                            "detail_id": pr_details_id_5,
+                            "product_id": prs_id_3,
                             "premium_type": "fixed price",
                         },
                         {
@@ -273,7 +362,8 @@ def upgrade():
                             "name": "Super Strong Protection Rider",
                             "category_id": pr_categories_id_2,
                             "insurance_type_id": pr_insurance_types_id_2,
-                            "basic_id": prs_id_2,
+                            "detail_id": "",
+                            "product_id": prs_id_2,
                             "premium_type": "rate by age",
                         }
                     ])
@@ -831,98 +921,6 @@ def upgrade():
                 "name": "Perlindungan Optimal Rawat Inap",
                 "benefit": "<div>Santunan tunai harian untuk rawat"
                 + " inap Rumah Sakit dan rawat inap ICU</div>",
-            }
-        ])
-
-    pr_details_id_1 = generate_uuid()
-    pr_details_id_2 = generate_uuid()
-    pr_details_id_3 = generate_uuid()
-    pr_details_id_4 = generate_uuid()
-    pr_details_id_5 = generate_uuid()
-    pr_details_id_6 = generate_uuid()
-    op.bulk_insert(
-        pr_details,
-        [
-            {
-                "id": pr_details_id_1,
-                "summary": "Asuransi jiwa yang memberikan kamu manfaat"
-                + " perlindungan finansial untuk diri sendiri dan orang-orang"
-                + " terdekat dari hal tak terduga",
-                "description": "<div>Asuransi jiwa yang memberikan"
-                + " kamu manfaat perlindungan finansial untuk diri sendiri dan"
-                + " orang-orang terdekat dari hal tak terduga</div>",
-                "icon": "products/"
-                + "c8ab8a5ebb762b440a6db7b830e102a30a22d11f.svg",
-                "coverage_period": 1,
-                "basic_id": prs_id_1,
-                "rider_id": "",
-            },
-            {
-                "id": pr_details_id_2,
-                "summary": "Asuransi yang menyiapkan diri kamu dengan"
-                + " manfaat perlindungan dari penyakit kritis <br> <br>",
-                "description": "<div>Asuransi yang menyiapkan diri"
-                + " kamu dengan manfaat perlindungan dari penyakit kritis"
-                + "</div>",
-                "icon": "products/"
-                + "2ba2d0e4226123189a55c80443b731efc13edf54.svg",
-                "coverage_period": 1,
-                "basic_id": prs_id_2,
-                "rider_id": "",
-            },
-            {
-                "id": pr_details_id_3,
-                "summary": "Asuransi yang menjaga kamu sepenuhnya dengan"
-                + " memberikan perlindungan menyeluruh dari risiko cedera yang"
-                + " disebabkan oleh kecelakaan",
-                "description": "<div>Asuransi yang menjaga kamu"
-                + " sepenuhnya dengan memberikan perlindungan menyeluruh dari"
-                + " risiko cedera yang disebabkan oleh kecelakaan</div>",
-                "icon": "products/"
-                + "4abf9e867e26aa7d0993c747ba5416874c668178.svg",
-                "coverage_period": 1,
-                "basic_id": prs_id_3,
-                "rider_id": "",
-            },
-            {
-                "id": pr_details_id_4,
-                "summary": "Maksimalkan perlindungan super kamu dengan manfaat"
-                + " dobel untuk risiko kecelakaan ketika berkendara dengan"
-                + " motor",
-                "description": "<div>Maksimalkan perlindungan super kamu"
-                + " dengan manfaat dobel untuk risiko kecelakaan ketika"
-                + " berkendara dengan motor</div>",
-                "icon": "products/"
-                + "s8mvMf8D51v7s4StFjW4fVpr8rJuZExBQxgHPZn9.svg",
-                "coverage_period": 1,
-                "basic_id": "",
-                "rider_id": pr_riders_id_1,
-            },
-            {
-                "id": pr_details_id_5,
-                "summary": "Lengkapi perlindungan super kamu dengan manfaat"
-                + " dobel untuk risiko kecelakaan khusus setiap hari libur"
-                + " nasional",
-                "description": "<div>Lengkapi perlindungan super kamu"
-                + " dengan manfaat dobel untuk risiko kecelakaan khusus setiap"
-                + " hari libur nasional</div>",
-                "icon": "",
-                "coverage_period": 1,
-                "basic_id": "",
-                "rider_id": pr_riders_id_2,
-            },
-            {
-                "id": pr_details_id_6,
-                "summary": "Produk unggulan yang meringankan beban biaya"
-                + " perawatan Rumah Sakit, baik rawat inap maupun ICU.",
-                "description": "<div>Produk unggulan yang meringankan"
-                + " beban biaya perawatan Rumah Sakit, baik rawat inap maupun"
-                + " ICU.</div>",
-                "icon": "products/"
-                + "27c6a2dcca47393dda84f3d038dd3d115d798520.svg",
-                "coverage_period": 1,
-                "basic_id": prs_id_4,
-                "rider_id": "",
             }
         ])
     pass

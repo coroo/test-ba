@@ -11,3 +11,5 @@ class ProductInsuranceType(Base):
     name = Column(String(191), unique=True, index=True)
 
     products = relationship("Product", back_populates="insurance_type")
+    riders = relationship("ProductRider",
+                          back_populates="insurance_type")

@@ -6,12 +6,10 @@ from config.database import Base
 from .product_category_model import ProductCategory
 from .product_insurance_type_model import ProductInsuranceType
 from .product_detail_model import ProductDetail
-from .product_rider_model import ProductRider
-from .product_benefit_model import ProductBenefit
 
 
-class Product(Base):
-    __tablename__ = "products"
+class ProductRider(Base):
+    __tablename__ = "product_riders"
 
     id = Column(Integer, primary_key=True, index=True)
     slug = Column(String(191), index=True)
@@ -26,13 +24,12 @@ class Product(Base):
     detail_id = Column(String(50),
                        ForeignKey("product_details.id"),
                        nullable=True)
-    featured = Column(Boolean, default=True)
+    product_id = Column(String(50),
+                        ForeignKey("products.id"),
+                        default=True)
     premium_type = Column(String(191))
-    bundling_with_rider = Column(Boolean, default=True)
 
-    category = relationship(ProductCategory, back_populates="products")
+    category = relationship(ProductCategory, back_populates="riders")
     insurance_type = relationship(ProductInsuranceType,
-                                  back_populates="products")
-    detail = relationship(ProductDetail, back_populates="products")
-    riders = relationship(ProductRider, backref="product", lazy="select")
-    benefits = relationship(ProductBenefit, backref="product", lazy="select")
+                                  back_populates="riders")
+    detail = relationship(ProductDetail, back_populates="riders")

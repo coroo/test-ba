@@ -1,33 +1,28 @@
-from typing import Optional, List
+from typing import Optional
 from pydantic import BaseModel
 
 from .product_category_schema import ProductCategory
 from .product_insurance_type_schema import ProductInsuranceType
 from .product_detail_schema import ProductDetail
-from .product_rider_schema import ProductRider
-from .product_benefit_schema import ProductBenefit
 
 
-class ProductBase(BaseModel):
+class ProductRiderBase(BaseModel):
     slug: str
     name: str
     is_active: Optional[bool] = 1
-    featured: Optional[bool] = 0
+    product_id: str
     premium_type: str
-    bundling_with_rider: Optional[bool] = 0
 
 
-class ProductCreate(ProductBase):
+class ProductRiderCreate(ProductRiderBase):
     pass
 
 
-class Product(ProductBase):
+class ProductRider(ProductRiderBase):
     id: str
     category: Optional[ProductCategory]
     insurance_type: Optional[ProductInsuranceType]
     detail: Optional[ProductDetail]
-    riders: Optional[List[ProductRider]]
-    benefits: Optional[List[ProductBenefit]]
 
     class Config:
         orm_mode = True
