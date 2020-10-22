@@ -1329,4 +1329,5 @@ def downgrade():
     op.drop_table('product_benefits'),
     op.drop_table('product_riders'),
     op.drop_table('product_plans')
+    op.drop_table('product_plan_benefits')
     pass
