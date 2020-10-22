@@ -1,5 +1,8 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from config.database import Base
+from sqlalchemy.orm import relationship
+
+from .product_plan_benefit_model import ProductPlanBenefit
 
 
 class ProductPlan(Base):
@@ -18,3 +21,7 @@ class ProductPlan(Base):
     type = Column(String(191), nullable=True)
     monthly_premium = Column(Integer, default=0)
     yearly_premium = Column(Integer, default=0)
+
+    benefits = relationship(ProductPlanBenefit,
+                            backref="product_plan",
+                            lazy="select")

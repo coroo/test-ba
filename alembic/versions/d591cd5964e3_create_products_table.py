@@ -149,6 +149,22 @@ def upgrade():
                   server_default=sa.func.current_timestamp(), nullable=False),
     )
 
+    pr_plan_benefits = op.create_table(
+        'product_plan_benefits',
+        sa.Column('id', sa.String(50), primary_key=True, index=True),
+        sa.Column('product_plan_id', sa.String(50), nullable=False),
+        sa.Column('benefit', sa.String(191), nullable=False),
+        sa.Column('value', sa.String(191), nullable=True),
+        sa.Column('value_type', sa.String(191), nullable=True),
+        sa.Column('value_type', sa.String(191), nullable=True),
+        sa.Column('order', sa.Integer, nullable=True),
+
+        sa.Column('created_at', sa.DateTime(),
+                  server_default=sa.func.current_timestamp(), nullable=False),
+        sa.Column('updated_at', sa.DateTime(),
+                  server_default=sa.func.current_timestamp(), nullable=False),
+    )
+
     # Seed Data
     pr_details_id_1 = generate_uuid()
     pr_details_id_2 = generate_uuid()
@@ -368,36 +384,36 @@ def upgrade():
                         }
                     ])
 
-    pr_plans_1 = generate_uuid()
-    pr_plans_2 = generate_uuid()
-    pr_plans_3 = generate_uuid()
-    pr_plans_4 = generate_uuid()
-    pr_plans_5 = generate_uuid()
-    pr_plans_6 = generate_uuid()
-    pr_plans_7 = generate_uuid()
-    pr_plans_8 = generate_uuid()
-    pr_plans_9 = generate_uuid()
-    pr_plans_10 = generate_uuid()
-    pr_plans_11 = generate_uuid()
-    pr_plans_12 = generate_uuid()
-    pr_plans_13 = generate_uuid()
-    pr_plans_14 = generate_uuid()
-    pr_plans_15 = generate_uuid()
-    pr_plans_16 = generate_uuid()
-    pr_plans_17 = generate_uuid()
-    pr_plans_18 = generate_uuid()
-    pr_plans_19 = generate_uuid()
-    pr_plans_20 = generate_uuid()
-    pr_plans_21 = generate_uuid()
-    pr_plans_22 = generate_uuid()
+    pr_plans_id_1 = generate_uuid()
+    pr_plans_id_2 = generate_uuid()
+    pr_plans_id_3 = generate_uuid()
+    pr_plans_id_4 = generate_uuid()
+    pr_plans_id_5 = generate_uuid()
+    pr_plans_id_6 = generate_uuid()
+    pr_plans_id_7 = generate_uuid()
+    pr_plans_id_8 = generate_uuid()
+    pr_plans_id_9 = generate_uuid()
+    pr_plans_id_10 = generate_uuid()
+    pr_plans_id_11 = generate_uuid()
+    pr_plans_id_12 = generate_uuid()
+    pr_plans_id_13 = generate_uuid()
+    pr_plans_id_14 = generate_uuid()
+    pr_plans_id_15 = generate_uuid()
+    pr_plans_id_16 = generate_uuid()
+    pr_plans_id_17 = generate_uuid()
+    pr_plans_id_18 = generate_uuid()
+    pr_plans_id_19 = generate_uuid()
+    pr_plans_id_20 = generate_uuid()
+    pr_plans_id_21 = generate_uuid()
+    pr_plans_id_22 = generate_uuid()
     op.bulk_insert(
         pr_plans,
         [
             {
-                "id": pr_plans_1,
+                "id": pr_plans_id_1,
                 "product_id": prs_id_1,
                 "rider_id": "",
-                "product_plan_code": "DLP1_Bronze_Plan",
+                "product_plan_code": "DLP1_BRONZE_PLAN",
                 "product_code": "DLP1",
                 "icon": "products/plans/"
                 + "Tc7vZDmle0qLgVIGHdSIomMXqrnsQGBEMKCEK6Sr.svg",
@@ -411,10 +427,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_2,
+                "id": pr_plans_id_2,
                 "product_id": prs_id_1,
                 "rider_id": "",
-                "product_plan_code": "DLP1_Silver_Plan",
+                "product_plan_code": "DLP1_SILVER_PLAN",
                 "product_code": "DLP1",
                 "icon": "products/plans/"
                 + "rri8V6pucvjMLvkU0Ub3r8tZYGQmcsQhiLY3BJNH.svg",
@@ -428,10 +444,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_3,
+                "id": pr_plans_id_3,
                 "product_id": prs_id_1,
                 "rider_id": "",
-                "product_plan_code": "DLP1_Gold_Plan",
+                "product_plan_code": "DLP1_GOLD_PLAN",
                 "product_code": "DLP1",
                 "icon": "products/plans/"
                 + "TbIn6IOOGtvY30E7HAtCs2IolmCftDzaQ4ESPCF3.svg",
@@ -446,10 +462,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_4,
+                "id": pr_plans_id_4,
                 "product_id": prs_id_2,
                 "rider_id": "",
-                "product_plan_code": "DCP1_Bronze_Plan",
+                "product_plan_code": "DCP1_BRONZE_PLAN",
                 "product_code": "DCP1",
                 "icon": "products/plans/"
                 + "CJgTzOpljlUZvJeM4LIlJwZZKvc8Orm2Q88Lyr8e.svg",
@@ -464,10 +480,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_5,
+                "id": pr_plans_id_5,
                 "product_id": prs_id_2,
                 "rider_id": "",
-                "product_plan_code": "DCP1_Silver_Plan",
+                "product_plan_code": "DCP1_SILVER_PLAN",
                 "product_code": "DCP1",
                 "icon": "products/plans/"
                 + "1mYa8fceRvaGUwCS7Lo892hdJIyE8ueJcx17JrZg.svg",
@@ -482,10 +498,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_6,
+                "id": pr_plans_id_6,
                 "product_id": prs_id_2,
                 "rider_id": "",
-                "product_plan_code": "DCP1_Gold_Plan",
+                "product_plan_code": "DCP1_GOLD_PLAN",
                 "product_code": "DCP1",
                 "icon": "products/plans/"
                 + "ixLR6BJKL2YKWfOkfZNPK9cVFPYRE2Kb96RK8FlX.svg",
@@ -500,10 +516,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_7,
+                "id": pr_plans_id_7,
                 "product_id": prs_id_2,
                 "rider_id": pr_riders_id_3,
-                "product_plan_code": "DCPR_Bronze_Plan",
+                "product_plan_code": "DCPR_BRONZE_PLAN",
                 "product_code": "DCPR",
                 "icon": "",
                 "name": "Bronze Plan",
@@ -515,10 +531,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_8,
+                "id": pr_plans_id_8,
                 "product_id": prs_id_2,
                 "rider_id": pr_riders_id_3,
-                "product_plan_code": "DCPR_Silver_Plan",
+                "product_plan_code": "DCPR_SILVER_PLAN",
                 "product_code": "DCPR",
                 "icon": "",
                 "name": "Silver Plan",
@@ -530,10 +546,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_9,
+                "id": pr_plans_id_9,
                 "product_id": prs_id_2,
                 "rider_id": pr_riders_id_3,
-                "product_plan_code": "DCPR_Gold_Plan",
+                "product_plan_code": "DCPR_GOLD_PLAN",
                 "product_code": "DCPR",
                 "icon": "",
                 "name": "Gold Plan",
@@ -545,10 +561,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_10,
+                "id": pr_plans_id_10,
                 "product_id": prs_id_3,
                 "rider_id": "",
-                "product_plan_code": "DSS1_Bronze_Plan",
+                "product_plan_code": "DSS1_BRONZE_PLAN",
                 "product_code": "DSS1",
                 "icon": "products/plans/"
                 + "EECIKhCA6mxfQor2fpeshOn8NYFAuBP0SClq6ZZJ.svg",
@@ -563,10 +579,10 @@ def upgrade():
                 "yearly_premium": 403000,
             },
             {
-                "id": pr_plans_11,
+                "id": pr_plans_id_11,
                 "product_id": prs_id_3,
                 "rider_id": "",
-                "product_plan_code": "DSS2_Silver_Plan",
+                "product_plan_code": "DSS2_SILVER_PLAN",
                 "product_code": "DSS2",
                 "icon": "products/plans/"
                 + "f8LYWIkKru2VlpBt4JhP0Mv9moenfItdnNKTRv59.svg",
@@ -581,10 +597,10 @@ def upgrade():
                 "yearly_premium": 1007000,
             },
             {
-                "id": pr_plans_12,
+                "id": pr_plans_id_12,
                 "product_id": prs_id_3,
                 "rider_id": "",
-                "product_plan_code": "DSS3_Gold_Plan",
+                "product_plan_code": "DSS3_GOLD_PLAN",
                 "product_code": "DSS3",
                 "icon": "products/plans/"
                 + "r6A7n1T1YJTQgZk8GoLeqYhLaFRcVazllo7t4VKv.svg",
@@ -598,10 +614,10 @@ def upgrade():
                 "yearly_premium": 2013500,
             },
             {
-                "id": pr_plans_13,
+                "id": pr_plans_id_13,
                 "product_id": prs_id_3,
                 "rider_id": pr_riders_id_1,
-                "product_plan_code": "DSMR1_Bronze_Plan",
+                "product_plan_code": "DSMR1_BRONZE_PLAN",
                 "product_code": "DSMR1",
                 "icon": "products/plans/"
                 + "mOQie7wotHo7yWJkJurSAye3qDv6W2buQfrSFdXI.svg",
@@ -614,10 +630,10 @@ def upgrade():
                 "yearly_premium": 105000,
             },
             {
-                "id": pr_plans_14,
+                "id": pr_plans_id_14,
                 "product_id": prs_id_3,
                 "rider_id": pr_riders_id_1,
-                "product_plan_code": "DSMR2_Silver_Plan",
+                "product_plan_code": "DSMR2_SILVER_PLAN",
                 "product_code": "DSMR2",
                 "icon": "products/plans/"
                 + "7h1Rn2pRlGhbowpLNEc2oEMrg31LbYptW09pv6MA.svg",
@@ -630,10 +646,10 @@ def upgrade():
                 "yearly_premium": 262500,
             },
             {
-                "id": pr_plans_15,
+                "id": pr_plans_id_15,
                 "product_id": prs_id_3,
                 "rider_id": pr_riders_id_1,
-                "product_plan_code": "DSMR3_Gold_Plan",
+                "product_plan_code": "DSMR3_GOLD_PLAN",
                 "product_code": "DSMR3",
                 "icon": "products/plans/"
                 + "vWAjsMebTrVCGW6pKhJFYE0sgomXrGNs2luN7p7w.svg",
@@ -646,10 +662,10 @@ def upgrade():
                 "yearly_premium": 525000,
             },
             {
-                "id": pr_plans_16,
+                "id": pr_plans_id_16,
                 "product_id": prs_id_3,
                 "rider_id": pr_riders_id_2,
-                "product_plan_code": "DSHR1_Bronze_Plan",
+                "product_plan_code": "DSHR1_BRONZE_PLAN",
                 "product_code": "DSHR1",
                 "icon": "products/plans/"
                 + "b5GkdmMKVwcBy8AbpZrQNaQKYiLUpFVdj0tPGiaL.svg",
@@ -662,10 +678,10 @@ def upgrade():
                 "yearly_premium": 233000,
             },
             {
-                "id": pr_plans_17,
+                "id": pr_plans_id_17,
                 "product_id": prs_id_3,
                 "rider_id": pr_riders_id_2,
-                "product_plan_code": "DSHR2_Silver_Plan",
+                "product_plan_code": "DSHR2_SILVER_PLAN",
                 "product_code": "DSHR2",
                 "icon": "products/plans/"
                 + "90o9z2mc8x0Xsrw7P6xnqTfIUC5haS5Zk5YJ5TX6.svg",
@@ -678,10 +694,10 @@ def upgrade():
                 "yearly_premium": 582000,
             },
             {
-                "id": pr_plans_18,
+                "id": pr_plans_id_18,
                 "product_id": prs_id_3,
                 "rider_id": pr_riders_id_2,
-                "product_plan_code": "DSHR3_Gold_Plan",
+                "product_plan_code": "DSHR3_GOLD_PLAN",
                 "product_code": "DSHR3",
                 "icon": "products/plans/"
                 + "q6osdJiJcS932Lg1unz1eOnAP8w4wbt3teO0mcW7.svg",
@@ -694,10 +710,10 @@ def upgrade():
                 "yearly_premium": 1164000,
             },
             {
-                "id": pr_plans_19,
+                "id": pr_plans_id_19,
                 "product_id": prs_id_4,
                 "rider_id": "",
-                "product_plan_code": "DHP1_Bronze_Plan",
+                "product_plan_code": "DHP1_BRONZE_PLAN",
                 "product_code": "DHP1",
                 "icon": "products/plans/"
                 + "qxN6aaNSBWn9K3AB23bLZaZ4MR7KfMAZDHlsmAC0.svg",
@@ -712,10 +728,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_20,
+                "id": pr_plans_id_20,
                 "product_id": prs_id_4,
                 "rider_id": "",
-                "product_plan_code": "DHP1_Silver_Plan",
+                "product_plan_code": "DHP1_SILVER_PLAN",
                 "product_code": "DHP1",
                 "icon": "products/plans/"
                 + "z5o5xUTThFOVyEtnHcdSD04UYLgQLKKnK3erGYZx.svg",
@@ -730,10 +746,10 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_21,
+                "id": pr_plans_id_21,
                 "product_id": prs_id_4,
                 "rider_id": "",
-                "product_plan_code": "DHP1_Gold_Plan",
+                "product_plan_code": "DHP1_GOLD_PLAN",
                 "product_code": "DHP1",
                 "icon": "products/plans/"
                 + "aNYUnQwKaJG9HMhlCwWTPOqvV6elZTrvYkDzaxHN.svg",
@@ -748,7 +764,7 @@ def upgrade():
                 "yearly_premium": 0,
             },
             {
-                "id": pr_plans_22,
+                "id": pr_plans_id_22,
                 "product_id": prs_id_4,
                 "rider_id": "",
                 "product_plan_code": "DHP1_Gold_Plus",
@@ -921,6 +937,385 @@ def upgrade():
                 "name": "Perlindungan Optimal Rawat Inap",
                 "benefit": "<div>Santunan tunai harian untuk rawat"
                 + " inap Rumah Sakit dan rawat inap ICU</div>",
+            }
+        ])
+
+    pr_plan_benefits_id_1 = generate_uuid()
+    pr_plan_benefits_id_2 = generate_uuid()
+    pr_plan_benefits_id_3 = generate_uuid()
+    pr_plan_benefits_id_4 = generate_uuid()
+    pr_plan_benefits_id_5 = generate_uuid()
+    pr_plan_benefits_id_6 = generate_uuid()
+    pr_plan_benefits_id_7 = generate_uuid()
+    pr_plan_benefits_id_8 = generate_uuid()
+    pr_plan_benefits_id_9 = generate_uuid()
+    pr_plan_benefits_id_10 = generate_uuid()
+    pr_plan_benefits_id_11 = generate_uuid()
+    pr_plan_benefits_id_12 = generate_uuid()
+    pr_plan_benefits_id_13 = generate_uuid()
+    pr_plan_benefits_id_14 = generate_uuid()
+    pr_plan_benefits_id_15 = generate_uuid()
+    pr_plan_benefits_id_16 = generate_uuid()
+    pr_plan_benefits_id_17 = generate_uuid()
+    pr_plan_benefits_id_18 = generate_uuid()
+    pr_plan_benefits_id_19 = generate_uuid()
+    pr_plan_benefits_id_20 = generate_uuid()
+    pr_plan_benefits_id_21 = generate_uuid()
+    pr_plan_benefits_id_22 = generate_uuid()
+    pr_plan_benefits_id_23 = generate_uuid()
+    pr_plan_benefits_id_24 = generate_uuid()
+    pr_plan_benefits_id_25 = generate_uuid()
+    pr_plan_benefits_id_26 = generate_uuid()
+    pr_plan_benefits_id_27 = generate_uuid()
+    pr_plan_benefits_id_28 = generate_uuid()
+    pr_plan_benefits_id_29 = generate_uuid()
+    pr_plan_benefits_id_30 = generate_uuid()
+    pr_plan_benefits_id_31 = generate_uuid()
+    pr_plan_benefits_id_32 = generate_uuid()
+    pr_plan_benefits_id_33 = generate_uuid()
+    pr_plan_benefits_id_34 = generate_uuid()
+    pr_plan_benefits_id_35 = generate_uuid()
+    pr_plan_benefits_id_36 = generate_uuid()
+    pr_plan_benefits_id_37 = generate_uuid()
+    pr_plan_benefits_id_38 = generate_uuid()
+    pr_plan_benefits_id_39 = generate_uuid()
+    pr_plan_benefits_id_40 = generate_uuid()
+    pr_plan_benefits_id_41 = generate_uuid()
+    pr_plan_benefits_id_42 = generate_uuid()
+    op.bulk_insert(
+        pr_plan_benefits,
+        [
+            {
+                "id": pr_plan_benefits_id_1,
+                "product_plan_id": pr_plans_id_1,
+                "benefit": "Meninggal sebab apapun",
+                "value": "100000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_2,
+                "product_plan_id": pr_plans_id_1,
+                "benefit": "Meninggal karena kecelakaan",
+                "value": "200000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_3,
+                "product_plan_id": pr_plans_id_1,
+                "benefit": "Kehilangan anggota tubuh",
+                "value": "100000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_4,
+                "product_plan_id": pr_plans_id_2,
+                "benefit": "Meninggal sebab apapun",
+                "value": "200000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_5,
+                "product_plan_id": pr_plans_id_2,
+                "benefit": "Meninggal karena kecelakaan",
+                "value": "400000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_6,
+                "product_plan_id": pr_plans_id_2,
+                "benefit": "Kehilangan anggota tubuh",
+                "value": "200000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_7,
+                "product_plan_id": pr_plans_id_3,
+                "benefit": "Meninggal sebab apapun",
+                "value": "300000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_8,
+                "product_plan_id": pr_plans_id_3,
+                "benefit": "Meninggal karena kecelakaan",
+                "value": "600000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_9,
+                "product_plan_id": pr_plans_id_3,
+                "benefit": "Kehilangan anggota tubuh",
+                "value": "300000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_10,
+                "product_plan_id": pr_plans_id_4,
+                "benefit": "Pertanggungan meninggal dunia",
+                "value": "100000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_11,
+                "product_plan_id": pr_plans_id_5,
+                "benefit": "Pertanggungan meninggal dunia",
+                "value": "200000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_12,
+                "product_plan_id": pr_plans_id_6,
+                "benefit": "Pertanggungan meninggal dunia",
+                "value": "300000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_13,
+                "product_plan_id": pr_plans_id_10,
+                "benefit": "Perlindungan biaya medis karena kecelakaan",
+                "value": "10000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_14,
+                "product_plan_id": pr_plans_id_10,
+                "benefit": "Pertanggungan tutup usia/ perlindungan cacat total"
+                + " dan tetap karena kecelakaan",
+                "value": "200000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_15,
+                "product_plan_id": pr_plans_id_11,
+                "benefit": "Perlindungan biaya medis karena kecelakaan",
+                "value": "25000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_16,
+                "product_plan_id": pr_plans_id_11,
+                "benefit": "Pertanggungan tutup usia/ perlindungan cacat total"
+                + " dan tetap karena kecelakaan",
+                "value": "500000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_17,
+                "product_plan_id": pr_plans_id_12,
+                "benefit": "Perlindungan biaya medis karena kecelakaan",
+                "value": "50000000",
+                "value_type": "money",
+                "order": 1,
+            },
+            {
+                "id": pr_plan_benefits_id_18,
+                "product_plan_id": pr_plans_id_12,
+                "benefit": "Pertanggungan tutup usia/ perlindungan cacat total"
+                + " dan tetap karena kecelakaan",
+                "value": "1000000000",
+                "value_type": "money",
+                "order": 2,
+            },
+            {
+                "id": pr_plan_benefits_id_19,
+                "product_plan_id": pr_plans_id_13,
+                "benefit": "Tambahan perlindungan biaya medis untuk operasi"
+                + " gigi, patah tulang, dan koma akibat kecelakaan sepeda"
+                + " motor",
+                "value": "10000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_20,
+                "product_plan_id": pr_plans_id_14,
+                "benefit": "Tambahan perlindungan biaya medis untuk operasi"
+                + " gigi, patah tulang, dan koma akibat kecelakaan sepeda"
+                + " motor",
+                "value": "25000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_21,
+                "product_plan_id": pr_plans_id_15,
+                "benefit": "Tambahan perlindungan biaya medis untuk operasi"
+                + " gigi, patah tulang, dan koma akibat kecelakaan sepeda"
+                + " motor",
+                "value": "50000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_22,
+                "product_plan_id": pr_plans_id_16,
+                "benefit": "Tambahan perlindungan biaya medis karena"
+                + " kecelakaan saat liburan",
+                "value": "10000000",
+                "value_type": "money",
+                "order": 2,
+            },
+            {
+                "id": pr_plan_benefits_id_23,
+                "product_plan_id": pr_plans_id_17,
+                "benefit": "Tambahan perlindungan biaya medis karena"
+                + " kecelakaan saat liburan",
+                "value": "25000000",
+                "value_type": "money",
+                "order": 2,
+            },
+            {
+                "id": pr_plan_benefits_id_24,
+                "product_plan_id": pr_plans_id_18,
+                "benefit": "Tambahan perlindungan biaya medis karena"
+                + " kecelakaan saat liburan",
+                "value": "50000000",
+                "value_type": "money",
+                "order": 2,
+            },
+            {
+                "id": pr_plan_benefits_id_25,
+                "product_plan_id": pr_plans_id_16,
+                "benefit": "Jaminan pertanggungan tambahan selama masa"
+                + " liburan",
+                "value": "200000000",
+                "value_type": "money",
+                "order": 1,
+            },
+            {
+                "id": pr_plan_benefits_id_26,
+                "product_plan_id": pr_plans_id_17,
+                "benefit": "Jaminan pertanggungan tambahan selama masa"
+                + " liburan",
+                "value": "500000000",
+                "value_type": "money",
+                "order": 1,
+            },
+            {
+                "id": pr_plan_benefits_id_27,
+                "product_plan_id": pr_plans_id_18,
+                "benefit": "Jaminan pertanggungan tambahan selama masa"
+                + " liburan",
+                "value": "1000000000",
+                "value_type": "money",
+                "order": 1,
+            },
+            {
+                "id": pr_plan_benefits_id_28,
+                "product_plan_id": pr_plans_id_4,
+                "benefit": "Pertanggungan penyakit kritis kanker, serangan"
+                + " jantung, stroke",
+                "value": "100000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_29,
+                "product_plan_id": pr_plans_id_5,
+                "benefit": "Pertanggungan penyakit kritis kanker, serangan"
+                + " jantung, stroke",
+                "value": "200000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_30,
+                "product_plan_id": pr_plans_id_6,
+                "benefit": "Pertanggungan penyakit kritis kanker, serangan"
+                + " jantung, stroke",
+                "value": "300000000",
+                "value_type": "money",
+            },
+            {
+                "id": pr_plan_benefits_id_31,
+                "product_plan_id": pr_plans_id_19,
+                "benefit": "Biaya rawat harian rumah sakit",
+                "value": "200000",
+                "value_type": "moneyperday",
+                "order": 1,
+            },
+            {
+                "id": pr_plan_benefits_id_32,
+                "product_plan_id": pr_plans_id_19,
+                "benefit": "Biaya rawat harian ICU",
+                "value": "400000",
+                "value_type": "moneyperday",
+                "order": 2,
+            },
+            {
+                "id": pr_plan_benefits_id_33,
+                "product_plan_id": pr_plans_id_19,
+                "benefit": "Pertanggungan tutup usia",
+                "value": "20000000",
+                "value_type": "money",
+                "order": 3,
+            },
+            {
+                "id": pr_plan_benefits_id_34,
+                "product_plan_id": pr_plans_id_20,
+                "benefit": "Biaya rawat harian rumah sakit",
+                "value": "300000",
+                "value_type": "moneyperday",
+                "order": 1,
+            },
+            {
+                "id": pr_plan_benefits_id_35,
+                "product_plan_id": pr_plans_id_20,
+                "benefit": "Biaya rawat harian ICU",
+                "value": "600000",
+                "value_type": "moneyperday",
+                "order": 2,
+            },
+            {
+                "id": pr_plan_benefits_id_36,
+                "product_plan_id": pr_plans_id_20,
+                "benefit": "Pertanggungan tutup usia",
+                "value": "30000000",
+                "value_type": "money",
+                "order": 3,
+            },
+            {
+                "id": pr_plan_benefits_id_37,
+                "product_plan_id": pr_plans_id_22,
+                "benefit": "Biaya rawat harian rumah sakit",
+                "value": "500000",
+                "value_type": "moneyperday",
+                "order": 1,
+            },
+            {
+                "id": pr_plan_benefits_id_38,
+                "product_plan_id": pr_plans_id_22,
+                "benefit": "Biaya rawat harian ICU",
+                "value": "1000000",
+                "value_type": "moneyperday",
+                "order": 2,
+            },
+            {
+                "id": pr_plan_benefits_id_39,
+                "product_plan_id": pr_plans_id_22,
+                "benefit": "Pertanggungan tutup usia",
+                "value": "50000000",
+                "value_type": "money",
+                "order": 3,
+            },
+            {
+                "id": pr_plan_benefits_id_40,
+                "product_plan_id": pr_plans_id_21,
+                "benefit": "Biaya rawat harian rumah sakit",
+                "value": "400000",
+                "value_type": "moneyperday",
+                "order": 1,
+            },
+            {
+                "id": pr_plan_benefits_id_41,
+                "product_plan_id": pr_plans_id_21,
+                "benefit": "Biaya rawat harian ICU",
+                "value": "800000",
+                "value_type": "moneyperday",
+                "order": 2,
+            },
+            {
+                "id": pr_plan_benefits_id_42,
+                "product_plan_id": pr_plans_id_21,
+                "benefit": "Pertanggungan tutup usia",
+                "value": "40000000",
+                "value_type": "money",
+                "order": 3,
             }
         ])
     pass

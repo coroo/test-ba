@@ -37,4 +37,6 @@ class Product(Base):
     detail = relationship(ProductDetail, back_populates="products")
     riders = relationship(ProductRider, backref="product", lazy="select")
     benefits = relationship(ProductBenefit, backref="product", lazy="select")
-    plans = relationship(ProductPlan, backref="product", lazy="select")
+    plans = relationship(ProductPlan,
+                         primaryjoin="and_(Product.id==ProductPlan.product_id,"
+                         "ProductPlan.type=='basic')")
