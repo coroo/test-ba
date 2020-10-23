@@ -5,6 +5,10 @@ class ProductInsuranceTypeBase(BaseModel):
     name: str
 
 
+class ProductInsuranceTypeId(BaseModel):
+    id: str
+
+
 class ProductInsuranceTypeCreate(ProductInsuranceTypeBase):
     pass
 

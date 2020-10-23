@@ -1,9 +1,9 @@
 from fastapi import Depends, APIRouter, HTTPException, status
 from typing import List
 from sqlalchemy.orm import Session
-from app.schemas import product_schema, general_schema
+from app.schemas import user_schema, general_schema, product_schema
 from app.usecases import product_usecase
-from app.middlewares import deps, di
+from app.middlewares import deps, di, auth
 
 router = APIRouter()
 local_prefix = "/products/"
@@ -13,7 +13,9 @@ local_prefix = "/products/"
              response_model=product_schema.Product)
 def create_product(
             product: product_schema.ProductCreate,
-            db: Session = Depends(deps.get_db)
+            db: Session = Depends(deps.get_db),
+            current_user: user_schema.User = Depends(
+                auth.get_current_active_user)
         ):
     return product_usecase.create_user_product(db=db,
                                                product=product)
@@ -23,7 +25,9 @@ def create_product(
 def update_product(
             product_id: str,
             product: product_schema.ProductCreate,
-            db: Session = Depends(deps.get_db)
+            db: Session = Depends(deps.get_db),
+            current_user: user_schema.User = Depends(
+                auth.get_current_active_user)
         ):
     db_product = product_usecase.get_product(db, product_id=product_id)
     if db_product is None:
@@ -59,7 +63,9 @@ def read_product(product_id: str, db: Session = Depends(deps.get_db)):
 @router.delete(local_prefix, response_model=general_schema.Delete)
 def delete_product(
             product: product_schema.ProductId,
-            db: Session = Depends(deps.get_db)
+            db: Session = Depends(deps.get_db),
+            current_user: user_schema.User = Depends(
+                auth.get_current_active_user)
         ):
     db_product = product_usecase.get_product(db, product_id=product.id)
     if db_product is None:

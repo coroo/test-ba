@@ -5,6 +5,10 @@ class ProductCategoryBase(BaseModel):
     name: str
 
 
+class ProductCategoryId(BaseModel):
+    id: str
+
+
 class ProductCategoryCreate(ProductCategoryBase):
     pass
 

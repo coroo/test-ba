@@ -9,6 +9,10 @@ class ProductDetailBase(BaseModel):
     coverage_period: Optional[str] = None
 
 
+class ProductDetailId(BaseModel):
+    id: str
+
+
 class ProductDetailCreate(ProductDetailBase):
     pass
 
