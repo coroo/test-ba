@@ -14,7 +14,7 @@ fake_name = fake.name()
 fake_premium_type = 'rate by age'
 
 
-def test_func_create_mockup_products():
+def test_func_create_relationship_mockup_products():
     response = client.post(
         settings.API_PREFIX+"/users/token",
         data={"username": "coroo.wicaksono@gmail.com",
@@ -180,7 +180,7 @@ def test_func_products():
     assert response.status_code == 404
 
 
-def test_func_delete_mockup_products():
+def test_func_delete_relationship_mockup_products():
     response = client.post(
         settings.API_PREFIX+"/users/token",
         data={"username": "coroo.wicaksono@gmail.com",
