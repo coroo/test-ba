@@ -13,3 +13,17 @@ def get_product(db: Session, product_id: str):
 
 def create_user_product(db: Session, product: product_schema.ProductCreate):
     return product_repository.create_user_product(db=db, product=product)
+
+
+def update_product(
+            db: Session,
+            product: product_schema.ProductCreate,
+            product_id: str
+        ):
+    return product_repository.update_product(db=db,
+                                             product=product,
+                                             product_id=product_id)
+
+
+def delete_product(db: Session, product_id: str):
+    return product_repository.delete_product(db=db, product_id=product_id)

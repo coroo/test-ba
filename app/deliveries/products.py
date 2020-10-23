@@ -1,7 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException, status
 from typing import List
 from sqlalchemy.orm import Session
-from app.schemas import product_schema
+from app.schemas import product_schema, general_schema
 from app.usecases import product_usecase
 from app.middlewares import deps, di
 
@@ -9,16 +9,29 @@ router = APIRouter()
 local_prefix = "/products/"
 
 
-@router.post("/users/{user_id}"+local_prefix,
+@router.post(local_prefix,
              response_model=product_schema.Product)
-def create_product_for_user(
-            user_id: str,
+def create_product(
             product: product_schema.ProductCreate,
             db: Session = Depends(deps.get_db)
         ):
     return product_usecase.create_user_product(db=db,
-                                               product=product,
-                                               user_id=user_id)
+                                               product=product)
+
+
+@router.put(local_prefix+"{product_id}", response_model=product_schema.Product)
+def update_product(
+            product_id: str,
+            product: product_schema.ProductCreate,
+            db: Session = Depends(deps.get_db)
+        ):
+    db_product = product_usecase.get_product(db, product_id=product_id)
+    if db_product is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
+    return product_usecase.update_product(db=db,
+                                          product=product,
+                                          product_id=product_id)
 
 
 @router.get(local_prefix, response_model=List[product_schema.Product])
@@ -41,3 +54,16 @@ def read_product(product_id: str, db: Session = Depends(deps.get_db)):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
     return db_product
+
+
+@router.delete(local_prefix, response_model=general_schema.Delete)
+def delete_product(
+            product: product_schema.ProductId,
+            db: Session = Depends(deps.get_db)
+        ):
+    db_product = product_usecase.get_product(db, product_id=product.id)
+    if db_product is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
+    product_usecase.delete_product(db=db, product_id=product.id)
+    return {"id": product.id}

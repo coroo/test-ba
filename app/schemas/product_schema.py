@@ -18,8 +18,14 @@ class ProductBase(BaseModel):
     bundling_with_rider: Optional[bool] = 0
 
 
+class ProductId(BaseModel):
+    id: str
+
+
 class ProductCreate(ProductBase):
-    pass
+    category_id: str
+    insurance_type_id: str
+    detail_id: str
 
 
 class Product(ProductBase):
