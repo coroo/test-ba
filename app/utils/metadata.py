@@ -16,7 +16,8 @@ tags = [
     },
     {
         "name": "products",
-        "description": "Operations with _products_.",
+        "description": "Operations with _products_. Include of"
+        + " **categories**, **details**, **insurance_types**, **plan**",
     },
     {
         "name": "product_categories",
