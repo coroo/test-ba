@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.schemas import (user_schema,
                          general_schema,
                          product_detail_schema as schema)
-from app.usecases import product_detail_usecase as usecase
+from app.usecases.product_detail_service import ProductDetailService as usecase
 from app.middlewares import deps, di, auth
 
 router = APIRouter()
@@ -21,7 +21,7 @@ class ProductDetailController():
                 current_user: user_schema.User = Depends(
                     auth.get_current_active_user)
             ):
-        return usecase.create_user_product_detail(
+        return usecase.create(
             db=db,
             product_detail=product_detail)
 
@@ -34,14 +34,14 @@ class ProductDetailController():
                 current_user: user_schema.User = Depends(
                     auth.get_current_active_user)
             ):
-        db_product_detail = usecase.get_product_detail(
+        db_product_detail = usecase.read(
             db,
             product_detail_id=product_detail_id)
         if db_product_detail is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="ProductDetail not found")
-        return usecase.update_product_detail(
+        return usecase.update(
             db=db,
             product_detail=product_detail,
             product_detail_id=product_detail_id)
@@ -51,7 +51,7 @@ class ProductDetailController():
                 commons: dict = Depends(di.common_parameters),
                 db: Session = Depends(deps.get_db)
             ):
-        product_details = usecase.get_product_details(
+        product_details = usecase.reads(
                 db,
                 skip=commons['skip'],
                 limit=commons['limit']
@@ -63,7 +63,7 @@ class ProductDetailController():
     def read_product_detail(
             product_detail_id: str,
             db: Session = Depends(deps.get_db)):
-        db_product_detail = usecase.get_product_detail(
+        db_product_detail = usecase.read(
             db,
             product_detail_id=product_detail_id)
         if db_product_detail is None:
@@ -79,14 +79,14 @@ class ProductDetailController():
                 current_user: user_schema.User = Depends(
                     auth.get_current_active_user)
             ):
-        db_product_detail = usecase.get_product_detail(
+        db_product_detail = usecase.read(
             db,
             product_detail_id=product_detail.id)
         if db_product_detail is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="ProductDetail not found")
-        usecase.delete_product_detail(
+        usecase.delete(
             db=db,
             product_detail_id=product_detail.id)
         return {"id": product_detail.id}

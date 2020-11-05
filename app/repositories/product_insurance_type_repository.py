@@ -8,7 +8,7 @@ from app.utils.uuid import generate_uuid
 
 class ProductInsuranceTypeRepository(RepositoryInterface):
 
-    def get_product_insurance_types(
+    def reads(
             db: Session,
             skip: int = 0,
             limit: int = 100):
@@ -16,7 +16,7 @@ class ProductInsuranceTypeRepository(RepositoryInterface):
             model.ProductInsuranceType
         ).offset(skip).limit(limit).all()
 
-    def get_product_insurance_type(
+    def read(
             db: Session,
             product_insurance_type_id: str):
         return db.query(
@@ -25,7 +25,7 @@ class ProductInsuranceTypeRepository(RepositoryInterface):
             model.ProductInsuranceType.id == product_insurance_type_id
         ).first()
 
-    def create_user_product_insurance_type(
+    def create(
             db: Session,
             product_insurance_type: schema.ProductInsuranceTypeCreate):
         uuid = generate_uuid()
@@ -37,7 +37,7 @@ class ProductInsuranceTypeRepository(RepositoryInterface):
         db.refresh(db_product_insurance_type)
         return db_product_insurance_type
 
-    def update_product_insurance_type(
+    def update(
                 db: Session,
                 product_insurance_type: schema.ProductInsuranceTypeCreate,
                 product_insurance_type_id: str
@@ -57,7 +57,7 @@ class ProductInsuranceTypeRepository(RepositoryInterface):
             model.ProductInsuranceType.id == product_insurance_type_id
         ).first()
 
-    def delete_product_insurance_type(
+    def delete(
             db: Session,
             product_insurance_type_id: int):
         db.query(

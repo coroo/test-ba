@@ -6,19 +6,19 @@ from app.schemas import product_category_schema as schema
 from app.utils.uuid import generate_uuid
 
 
-class ProductDetailRepository(RepositoryInterface):
+class ProductCategoryRepository(RepositoryInterface):
 
-    def get_product_categories(db: Session, skip: int = 0, limit: int = 100):
+    def reads(db: Session, skip: int = 0, limit: int = 100):
         return db.query(
             model.ProductCategory
         ).offset(skip).limit(limit).all()
 
-    def get_product_category(db: Session, product_category_id: str):
+    def read(db: Session, product_category_id: str):
         return db.query(
             model.ProductCategory
         ).filter(model.ProductCategory.id == product_category_id).first()
 
-    def create_user_product_category(
+    def create(
             db: Session,
             product_category: schema.ProductCategoryCreate):
         uuid = generate_uuid()
@@ -30,7 +30,7 @@ class ProductDetailRepository(RepositoryInterface):
         db.refresh(db_product_category)
         return db_product_category
 
-    def update_product_category(
+    def update(
                 db: Session,
                 product_category: schema.ProductCategoryCreate,
                 product_category_id: str
@@ -48,7 +48,7 @@ class ProductDetailRepository(RepositoryInterface):
             model.ProductCategory
         ).filter(model.ProductCategory.id == product_category_id).first()
 
-    def delete_product_category(db: Session, product_category_id: int):
+    def delete(db: Session, product_category_id: int):
         db.query(
             model.ProductCategory
         ).filter(model.ProductCategory.id == product_category_id).delete()

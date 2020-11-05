@@ -8,17 +8,17 @@ from app.utils.uuid import generate_uuid
 
 class ProductRepository(RepositoryInterface):
 
-    def get_products(db: Session, skip: int = 0, limit: int = 100):
+    def reads(db: Session, skip: int = 0, limit: int = 100):
         return db.query(
             model.Product
         ).offset(skip).limit(limit).all()
 
-    def get_product(db: Session, product_id: str):
+    def read(db: Session, product_id: str):
         return db.query(
             model.Product
         ).filter(model.Product.id == product_id).first()
 
-    def create_user_product(db: Session, product: schema.ProductCreate):
+    def create(db: Session, product: schema.ProductCreate):
         uuid = generate_uuid()
         db_product = model.Product(
             id=uuid,
@@ -36,7 +36,7 @@ class ProductRepository(RepositoryInterface):
         db.refresh(db_product)
         return db_product
 
-    def update_product(
+    def update(
                 db: Session,
                 product: schema.ProductCreate,
                 product_id: str
@@ -62,7 +62,7 @@ class ProductRepository(RepositoryInterface):
             model.Product
         ).filter(model.Product.id == product_id).first()
 
-    def delete_product(db: Session, product_id: int):
+    def delete(db: Session, product_id: int):
         db.query(
             model.Product
         ).filter(model.Product.id == product_id).delete()

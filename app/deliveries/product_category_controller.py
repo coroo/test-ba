@@ -4,7 +4,8 @@ from sqlalchemy.orm import Session
 from app.schemas import (user_schema,
                          general_schema,
                          product_category_schema as schema)
-from app.usecases import product_category_usecase as usecase
+from app.usecases.product_category_service import (
+    ProductCategoryService as usecase)
 from app.middlewares import deps, di, auth
 
 router = APIRouter()
@@ -21,7 +22,7 @@ class ProductCategoryController():
                 current_user: user_schema.User = Depends(
                     auth.get_current_active_user)
             ):
-        return usecase.create_user_product_category(
+        return usecase.create(
             db=db,
             product_category=product_category)
 
@@ -34,14 +35,14 @@ class ProductCategoryController():
                 current_user: user_schema.User = Depends(
                     auth.get_current_active_user)
             ):
-        db_product_category = usecase.get_product_category(
+        db_product_category = usecase.read(
             db,
             product_category_id=product_category_id)
         if db_product_category is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Product Category not found")
-        return usecase.update_product_category(
+        return usecase.update(
             db=db,
             product_category=product_category,
             product_category_id=product_category_id)
@@ -52,7 +53,7 @@ class ProductCategoryController():
                 commons: dict = Depends(di.common_parameters),
                 db: Session = Depends(deps.get_db)
             ):
-        product_categories = usecase.get_product_categories(
+        product_categories = usecase.reads(
                 db,
                 skip=commons['skip'],
                 limit=commons['limit']
@@ -63,7 +64,7 @@ class ProductCategoryController():
                 response_model=schema.ProductCategory)
     def read_product_category(product_category_id: str,
                               db: Session = Depends(deps.get_db)):
-        db_product_category = usecase.get_product_category(
+        db_product_category = usecase.read(
             db,
             product_category_id=product_category_id)
         if db_product_category is None:
@@ -79,14 +80,14 @@ class ProductCategoryController():
                 current_user: user_schema.User = Depends(
                     auth.get_current_active_user)
             ):
-        db_product_category = usecase.get_product_category(
+        db_product_category = usecase.read(
             db,
             product_category_id=product_category.id)
         if db_product_category is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="ProductCategory not found")
-        usecase.delete_product_category(
+        usecase.delete(
             db=db,
             product_category_id=product_category.id)
         return {"id": product_category.id}

@@ -2,7 +2,7 @@ from fastapi import Depends, APIRouter, HTTPException, status
 from typing import List
 from sqlalchemy.orm import Session
 from app.schemas import user_schema, general_schema, product_schema
-from app.usecases import product_usecase
+from app.usecases.product_service import ProductService as usecase
 from app.middlewares import deps, di, auth
 
 router = APIRouter()
@@ -19,7 +19,7 @@ class ProductController():
                 current_user: user_schema.User = Depends(
                     auth.get_current_active_user)
             ):
-        return product_usecase.create_user_product(
+        return usecase.create(
             db=db,
             product=product)
 
@@ -32,12 +32,12 @@ class ProductController():
                 current_user: user_schema.User = Depends(
                     auth.get_current_active_user)
             ):
-        db_product = product_usecase.get_product(db, product_id=product_id)
+        db_product = usecase.read(db, product_id=product_id)
         if db_product is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Product not found")
-        return product_usecase.update_product(
+        return usecase.update(
             db=db,
             product=product,
             product_id=product_id)
@@ -47,7 +47,7 @@ class ProductController():
                 commons: dict = Depends(di.common_parameters),
                 db: Session = Depends(deps.get_db)
             ):
-        products = product_usecase.get_products(
+        products = usecase.reads(
                 db,
                 skip=commons['skip'],
                 limit=commons['limit']
@@ -57,7 +57,7 @@ class ProductController():
     @router.get(local_prefix+"{product_id}",
                 response_model=product_schema.Product)
     def read_product(product_id: str, db: Session = Depends(deps.get_db)):
-        db_product = product_usecase.get_product(db, product_id=product_id)
+        db_product = usecase.read(db, product_id=product_id)
         if db_product is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -71,10 +71,10 @@ class ProductController():
                 current_user: user_schema.User = Depends(
                     auth.get_current_active_user)
             ):
-        db_product = product_usecase.get_product(db, product_id=product.id)
+        db_product = usecase.read(db, product_id=product.id)
         if db_product is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Product not found")
-        product_usecase.delete_product(db=db, product_id=product.id)
+        usecase.delete(db=db, product_id=product.id)
         return {"id": product.id}
