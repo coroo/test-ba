@@ -1,6 +1,7 @@
 # Fast Api - Base Architecture
 
 [![ci](https://github.com/coroo/base-architecture/workflows/ci/badge.svg?branch=master)](../../actions)
+![latest changes](https://github.com/coroo/base-architecture/workflows/latest%20changes/badge.svg?branch=develop)
 
 :bulb: This architecture use the domain layer concept of [laravel](https://laravel.com/) from PHP, [rails](https://rubyonrails.org/) from Ruby and [clean-architecture](https://github.com/bxcodec/go-clean-arch#the-diagram) from Golang . By using this architecture, we hope that you don't need to create FastApi from scratch again. Then you can focus on your development with our standardized pattern.
 
@@ -30,7 +31,7 @@
 
 ## :pushpin: Domain Layer
 
-![diagram](https://github.com/bxcodec/go-clean-arch/raw/master/clean-arch.png)
+![diagram](out/domain-layer/base-architecture.png)
 
 ---
 
@@ -73,6 +74,37 @@ Or see Manual Installation in [here](#manual-installation)
 
 > And now, go to [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc).
 > You will see the alternative automatic documentation (provided by ReDoc)
+
+## :pencil: Typography
+
+Since we use python, we use **Snake Case** for naming convention. But please note that snake_case not belongs to:
+
+- `Class names` **MUST** be declared in StudlyCaps (ie: PascalCase).
+- `PR title/description` **MUST** be use this [PR guide](out/pull_request.md).
+- `ChangeLog` **NO NEED** to update manual. It will automatically created at [Changelog Page](out/changelog.md).
+
+## :zap: Unit Test
+
+For unit test, we only do 3 unit test:
+- **Feature Unit Test**
+    - For feature unit testing you need to follow [items testcase](test/routes/items_test.py). That is the example of unit test and you can easily copy paste and rename some prefix.
+- **Usecase Interface Unit Test**
+    - For usecase interface unit testing you just need to edit [usecase interface testcase file](test/interfaces/service_interface_test.py). You need to call your service/usecase ([how to?](test/interfaces/service_interface_test.py#L5)) and create check subclass unit test ([how to?](test/interfaces/service_interface_test.py#L9-L10))
+- **Repository Interface Unit Test**
+    - Almost same with usecase interface, for repository interface unit testing you just need to edit [repository interface testcase file](test/interfaces/repository_interface_test.py). You need to call your repository ([how to?](test/interfaces/repository_interface_test.py#L5)) and create check subclass unit test ([how to?](test/interfaces/repository_interface_test.py#L9-L10))
+
+### Run Unit Test
+
+```console
+pytest
+
+# Check Coverage
+pytest --cov=app --cov-config=.ignorecoveragerc test/
+
+# Create Coverage Report
+pytest --cov=app --cov-config=.ignorecoveragerc --cov-report html test/
+```
+    
 
 ## :traffic_light: Http Status Codes
 
@@ -117,16 +149,6 @@ This means that even though the request appeared to be valid something went wron
 
 ---
 
-## Detail
-
-For any X-Token Need, please use:
-
-```
-fake-super-secret-token
-```
-
----
-
 ## Manual Installation
 
 Dependencies Installation
@@ -137,21 +159,7 @@ pip3 install -r requirements.txt
 
 ---
 
-### Unit Test
-
-```console
-pytest
-
-# Check Coverage
-pytest --cov=app --cov-config=.ignorecoveragerc test/
-
-# Create Coverage Report
-pytest --cov=app --cov-config=.ignorecoveragerc --cov-report html test/
-```
-
----
-
-### Run App
+### Manual Run App
 
 ```console
 python3 main.py

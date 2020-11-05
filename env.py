@@ -4,7 +4,16 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     # APPLICATION SETTING
     APP_NAME: str = "Awesome Base Architecture"
-    APP_DESCRIPTION: str = "Base App for next project"
+    APP_DESCRIPTION: str = ("This architecture use the domain layer concept "
+                            + "of `laravel` from **PHP**, `rails` from "
+                            + "**Ruby** and `clean-architecture` from "
+                            + "**Golang**. <br/><br/>By using this "
+                            + "architecture, we hope that you don't need to "
+                            + "create FastApi from scratch again. <br/>So "
+                            + "that you can focus on your development with "
+                            + "our standardized pattern.<br/><br/><br/><br/>"
+                            + "[[Find out more]]"
+                            + "(https://github.com/coroo/base-architecture)")
     API_PREFIX: str = "/api/v1"
     APP_VERSION: str = "v1.0"
     APP_HOST: str = "0.0.0.0"
@@ -24,7 +33,11 @@ class Settings(BaseSettings):
     DB_USERNAME: str = "root"
     DB_PASSWORD: str = "root_pass"
 
-    # ALLOWED ORIGINS
+    # DOCUMENTATION
+    LINK_DOCS: str = "/docs"
+    LINK_REDOC: str = "/redoc"
+
+    # SECURITY
     ALLOWED_ORIGINS: str = "http://localhost:8080,http://127.0.0.1:8080"
 
     class Config:
