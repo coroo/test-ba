@@ -27,23 +27,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest pytest-cov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
+    - name: Coverage File
       run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        pytest --cache-clear
-    - name: Check & store test coverage
-      run: |
-        if [ -f .ignorecoveragerc ]; then pytest --cache-clear --cov=app --cov-config=.ignorecoveragerc --cov-report html test/; else pytest --cov=app test/; fi
-    - name: Upload pytest test results
-      uses: actions/upload-artifact@v2
-      with:
-        name: pytest-coverage-${{ matrix.python-version }}
-        path: |
-          htmlcov
-      # Use always() to always run this step to publish test results when there are test failures
-      if: ${{ always() }}
+        if [ -f .ignorecoveragerc ]; then pytest --cache-clear --cov=app --cov-config=.ignorecoveragerc test/ > output.txt -; else pytest --cov=app test/; fi
+    - name: Publish results
+      uses: coroo/test-coverage@v0.1
