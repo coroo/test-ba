@@ -65,7 +65,7 @@ class TestProducts():
             detail_data = response.json()
             assert detail_data[0]["id"] is not None
             detail_id = detail_data[0]["id"]
-            request.config.cache.set("c_insurance_type_id", detail_id)
+            request.config.cache.set("c_detail_id", detail_id)
 
         # READ FIRST PRODUCT INSURANCE TYPE
         c_insurance_type_id = request.config.cache.get(
