@@ -36,9 +36,9 @@ jobs:
     - name: Test with pytest
       run: |
         pytest --cache-clear
-    - name: Check test coverage
+    - name: Check & store test coverage
       run: |
-        if [ -f .ignorecoveragerc ]; then pytest --cache-clear --cov=app --cov-config=.ignorecoveragerc test/; else pytest --cov=app test/; fi
+        if [ -f .ignorecoveragerc ]; then pytest --cache-clear --cov=app --cov-config=.ignorecoveragerc --cov-report html test/; else pytest --cov=app test/; fi
     - name: Upload pytest test results
       uses: actions/upload-artifact@v2
       with:
