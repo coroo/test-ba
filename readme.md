@@ -99,10 +99,10 @@ For unit test, we only do 3 unit test:
 pytest
 
 # Check Coverage
-pytest --cov=app --cov-config=.ignorecoveragerc test/
+pytest --cache-clear --cov=app --cov-config=.ignorecoveragerc test/
 
 # Create Coverage Report
-pytest --cov=app --cov-config=.ignorecoveragerc --cov-report html test/
+pytest --cache-clear --cov=app --cov-config=.ignorecoveragerc --cov-report html test/
 ```
     
 
