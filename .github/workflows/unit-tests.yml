@@ -26,4 +26,4 @@ jobs:
       run: |
         if [ -f .ignorecoveragerc ]; then pytest --cache-clear --cov=app --cov-config=.ignorecoveragerc test/ > pytest-coverage.txt; else pytest --cov=app test/; fi
     - name: Publish results
-      uses: coroo/pytest-coverage-commentator@v1.0.1
+      uses: coroo/pytest-coverage-commentator@v1.0.2
