@@ -20,4 +20,4 @@ jobs:
       with:
         python-version: 3.8
     - name: Publish results
-      uses: coroo/test-coverage@v0.24
+      uses: coroo/test-coverage@v0.25
